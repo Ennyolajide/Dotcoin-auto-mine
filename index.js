@@ -12,7 +12,7 @@ axios.post(urls.get_user_info, {}, { headers: getHeaders() })
         const { id, balance, daily_attempts, gamex2_times } = res.data;
         id ? logInfo(res.data) : false;
         (id && gamex2_times > 0) ? tryYourluck(balance) : false;
-        daily_attempts > 0 ? saveCoins(taps(env), balance) : exitProcess;
+        daily_attempts > 0 ? saveCoins(taps(env), res.data) : exitProcess;
         chalk.green('All done!');
     })
     .catch(error => {

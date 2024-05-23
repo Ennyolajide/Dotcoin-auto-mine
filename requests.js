@@ -11,11 +11,11 @@ function tryYourluck(amount){
     }).catch((error) => { logError(error) });
 }
 
-async function saveCoins(taps, balance) {
+async function saveCoins(taps, userInfo) {
     const data = { "coins": taps }
     return await axios.post(urls.save_coins, data, { headers: getHeaders(data) }).then((res) => {
         const { success } = res.data;
-        success ? logTap(taps, balance) : exitProcess();
+        success ? logTap(taps, userInfo) : exitProcess();
     }).catch((error) => {
         logError(error);
     });
@@ -33,8 +33,8 @@ function logInfo(obj) {
     console.log(
         'First Name:', chalk.blue(obj.first_name),
         '| Coins:', chalk.yellow(Number(obj.balance).toLocaleString()),
-        '| X2:', chalk.magenta(obj.gamex2_times),
-        '| Attempt Left:', chalk.cyan(obj.daily_attempts)
+        '| X2:', chalk.cyan(obj.gamex2_times),
+        '| Attempt Left:', chalk.magenta(obj.daily_attempts)
     );
 }
 
@@ -42,11 +42,12 @@ function logRestoreAttempt(success) {
     console.log(success ? chalk.green('Restored attempt') : chalk.red('Failed to restore attempt'));
 }
 
-function logTap(taps, balance) {
+function logTap(taps, userObj) {
     console.log(
         'Taping ...', chalk.blue('->'),
-        chalk.magenta(taps), chalk.green('\u2714'),
-        ' | Coins:', chalk.yellow(Number(taps + balance).toLocaleString())
+        chalk.cyan(taps), chalk.green('\u2714'), ' | Coins:', 
+        chalk.yellow(Number(taps + userObj.balance).toLocaleString()),
+        ' | Attempt Left:', chalk.magenta(userObj.daily_attempts - 1)
     );
 }
 
