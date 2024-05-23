@@ -21,9 +21,11 @@ async function saveCoins(taps, userInfo) {
     });
 }
 
-function restoreAttempt(){
-    return axios.post(urls.restore, {}, { headers: getHeaders() }).then((res) => { 
-        logRestoreAttempt(res.data?.success);
+async function restoreAttemptAndSaveCoins(taps, userInfo){
+    return await axios.post(urls.restore, {}, { headers: getHeaders() }).then((res) => { 
+        const success = res.data?.success || false;
+        success ? saveCoins(taps, userInfo) : false;
+        logRestoreAttempt(success);
     }).catch((error) => {   
         logError(error);
     });
@@ -62,4 +64,4 @@ function exitProcess() {
     process.exit(); //end the process
 }
 
-module.exports = {  tryYourluck, saveCoins, restoreAttempt, logInfo, logTap, logError, exitProcess }
+module.exports = {  tryYourluck, saveCoins, restoreAttemptAndSaveCoins, logInfo, logTap, logError, exitProcess }
