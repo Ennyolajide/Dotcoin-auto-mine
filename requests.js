@@ -3,8 +3,8 @@ const axios = require('axios');
 const { urls, getHeaders } = require('./config');
 
 
-function tryYourluck(amount){
-    const data = { "coins": amount }
+function tryYourluck(luckAmount){
+    const data = { "coins": parseInt(luckAmount)}
     axios.post(urls.try_your_luck, data, { headers: getHeaders(data) }).then((res) => {
         const { success } = res.data;
         console.log('Lucky draw:', success ? chalk.green('\u2714') : chalk.red('\u2716'));
