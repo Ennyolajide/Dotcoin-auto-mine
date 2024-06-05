@@ -14,7 +14,7 @@ axios.post(urls.get_user_info, {}, { headers: getHeaders() })
         const _data = res.data;
         const { id, balance } = _data;
         id ? logInfo(res.data) : exitProcess();
-        //(id && _data?.gamex2_times > 0) ? tryYourluck(luckAmount) : false;
+        (id && _data?.gamex2_times > 0) ? tryYourluck(luckAmount) : false;
         (_data?.daily_attempts > 0 ) ? saveCoins(_taps, _data) : restoreAttemptAndSaveCoins(_taps, _data)
         chalk.green('All done!');
     })
