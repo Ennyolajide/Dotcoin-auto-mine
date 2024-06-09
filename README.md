@@ -4,7 +4,7 @@ Getting Started
 ---------------
 
 
-<img src="dotcoin.png" style="display: block; margin: 0 auto;" />
+<img src="/dotcoin.png" style="display: block; margin: 0 auto;" />
 
 ### Contact
 If you have any questions or need assistance, please:
